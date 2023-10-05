@@ -204,8 +204,10 @@
         
         active = false;
         period = 60*parseInt($("#minute").val()) + parseInt($("#second").val());
+        var m = parseInt(period/60);
+        var s = parseInt(period-m*60);
         $("#time").html("経過時間： 0");
-        $("#remain").html("残り時間： " + period);
+        $("#remain").html("残り時間： " + m + "分" + s + "秒");
     }
     
  
@@ -214,8 +216,10 @@
         if (active) {
             var time = parseInt((new Date()-startTime)/1000);
             var rest = period - time;
+            m = parseInt(rest/60);
+            s = parseInt(rest-m*60);
             $("#time").html("経過時間： " + time);
-            $("#remain").html("残り時間： " + rest);
+            $("#remain").html("残り時間： " + m + "分" + s + "秒");
             analog(rest);
 
             if (rest<=0) {
