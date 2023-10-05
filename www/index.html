@@ -156,6 +156,8 @@
 
     var mstr = "分:";
     var sstr = "秒:";
+
+    var rest = 0;
     
     // ボタンの初期設定
     function init(){
@@ -188,6 +190,10 @@
     function btnAClick(e){
         active = true;
         startTime = new Date();
+
+        if (rest!=0) {
+            period = rest;
+        }
 
         $("#btnA").prop("disabled", true);
         $("#btnB").prop("disabled", false);
@@ -227,7 +233,7 @@
     function timer(){  
         if (active) {
             var time = parseInt((new Date()-startTime)/1000);
-            var rest = period - time;
+            rest = period - time;
             m = parseInt(rest/60);
             s = parseInt(rest-m*60);
             $("#time").html("経過時間： " + time);
