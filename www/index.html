@@ -206,8 +206,6 @@
 
         // ButtonCがクリックされた時の処理
         function btnCClick(e) {
-            alarm();
-
             active = false;
             period = 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
             var m = parseInt(period / 60);
@@ -269,7 +267,7 @@
     <button id="btnA">Start</button>
     <button id="btnB">Stop</button>
     <button id="btnC">Set</button>
-    
+
     <input type="number" id="hour" value=0>
     <input type="number" id="minute" value=0>
     <input type="number" id="second" value=15>
