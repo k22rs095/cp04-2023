@@ -161,7 +161,7 @@
         // ボタンの初期設定
         function init() {
             $('#btnA').prop('disabled', false);
-            $('#btnB').prop('disabled', false);
+            $('#btnB').prop('disabled', true);
             $('#btnC').prop('disabled', false);
 
             var canvas = $("#mycanvas")[0];
@@ -188,8 +188,6 @@
 
         // ButtonAがクリックされた時の処理
         function btnAClick(e) {
-            
-
             active = true;
             startTime = new Date();
 
@@ -204,7 +202,7 @@
         // ButtonBがクリックされた時の処理
         function btnBClick(e) {
             active = false;
-
+            
             $("#btnA").prop("disabled", false);
             $("#btnB").prop("disabled", true);
         }
@@ -212,7 +210,7 @@
         // ButtonCがクリックされた時の処理
         function btnCClick(e) {
             ctx.clearRect(0, 0, 300, 300);
-            
+
             active = false;
             period = 3600 * parseInt($("#hour").val()) + 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
             var h = parseInt(period / 3600);
@@ -229,6 +227,8 @@
             }
             $("#minuteStr").html(mstr);
             $("#secondStr").html(sstr);
+
+            $("#btnC").prop("disabled", true);
         }
 
         // 繰り返し実行する処理
@@ -257,6 +257,7 @@
                 if (rest <= 0) {
                     active = false;
                     alarm();
+                    $("#btnC").prop("disabled", false);
                 }
             }
         }
@@ -275,7 +276,7 @@
 
     <button id="btnA">Start</button>
     <button id="btnB">Stop</button>
-    <button id="btnC">Set</button>
+    <button id="btnC">Reset</button>
 
     <input type="number" id="hour" value=0>
     <input type="number" id="minute" value=0>

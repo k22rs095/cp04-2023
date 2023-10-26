@@ -60,18 +60,18 @@
     }
     
     #btnA {
-        font-size: 20px;
-        position:absolute; top:380px; left:2%; width:43%; height:60px; 
+        font-size: 25px;
+        position:absolute; top:380px; left:5%; width: 30%; height:60px; 
     }
     
     #btnB {
-        font-size: 20px;
-        position:absolute; top:380px; left:45%; width:25%; height:60px; 
+        font-size: 25px;
+        position:absolute; top:380px; left:35%; width: 30%; height:60px; 
     }
 
     #btnC {
-        font-size: 10px;
-        position:absolute; top:380px; left:70%; width:28%; height:60px; 
+        font-size: 25px;
+        position:absolute; top:380px; right:5%; width: 30%; height:60px; 
     }
 
     #hour {
