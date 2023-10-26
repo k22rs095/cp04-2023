@@ -148,13 +148,13 @@
         // これより上は編集しなくて良い
         // 変数宣言
         var active = false;
+
         var startTime = 0;
         var period = 0;
+        var rest = 0;
 
         var mstr = "分:";
         var sstr = "秒:";
-
-        var rest = 0;
 
         var ctx;
 
@@ -164,14 +164,15 @@
             $('#btnB').prop('disabled', false);
             $('#btnC').prop('disabled', false);
 
+            var canvas = $("#mycanvas")[0];
+            ctx = canvas.getContext("2d");
+
             btnCClick(null);
         }
 
         // Alarmの処理
         function alarm() {
-            var canvas = $("#mycanvas")[0];
             var img = new Image();
-            ctx = canvas.getContext("2d");
             img.src = "ksuisbg.gif";
             img.onload = function() {
                 ctx.drawImage(img, 0, 0, 300, 300);
@@ -187,6 +188,8 @@
 
         // ButtonAがクリックされた時の処理
         function btnAClick(e) {
+            
+
             active = true;
             startTime = new Date();
 
@@ -208,6 +211,8 @@
 
         // ButtonCがクリックされた時の処理
         function btnCClick(e) {
+            ctx.clearRect(0, 0, 300, 300);
+            
             active = false;
             period = 3600 * parseInt($("#hour").val()) + 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
             var h = parseInt(period / 3600);
@@ -260,6 +265,7 @@
 
 <body>
     <canvas id="mycanvas" width="200" height="200">Test</canvas>
+
 
     <div id="minuteStr">〇</div>
     <div id="secondStr">〇</div>
