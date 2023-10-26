@@ -156,6 +156,8 @@
 
         var rest = 0;
 
+        var ctx;
+
         // ボタンの初期設定
         function init() {
             $('#btnA').prop('disabled', false);
@@ -168,8 +170,8 @@
         // Alarmの処理
         function alarm() {
             var canvas = $("#mycanvas")[0];
-            var ctx = canvas.getContext("2d");
             var img = new Image();
+            ctx = canvas.getContext("2d");
             img.src = "ksuisbg.gif";
             img.onload = function() {
                 ctx.drawImage(img, 0, 0, 300, 300);
@@ -207,11 +209,12 @@
         // ButtonCがクリックされた時の処理
         function btnCClick(e) {
             active = false;
-            period = 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
-            var m = parseInt(period / 60);
-            var s = parseInt(period - m * 60);
+            period = 3600 * parseInt($("#hour").val()) + 60 * parseInt($("#minute").val()) + parseInt($("#second").val());
+            var h = parseInt(period / 3600);
+            var m = parseInt((period - h * 3600) / 60);
+            var s = parseInt(period - (h * 3600 + m * 60));
             $("#time").html("経過時間： 0");
-            $("#remain").html("残り時間： " + m + "分" + s + "秒");
+            $("#remain").html("残り時間： " + h + "時間" + m + "分" + s + "秒");
 
             for (var i = 0; i < m; i++) {
                 mstr += "○";
@@ -223,16 +226,16 @@
             $("#secondStr").html(sstr);
         }
 
-
         // 繰り返し実行する処理
         function timer() {
             if (active) {
                 var time = parseInt((new Date() - startTime) / 1000);
                 rest = period - time;
-                m = parseInt(rest / 60);
-                s = parseInt(rest - m * 60);
+                h = parseInt(rest / 3600);
+                m = parseInt((rest - h * 3600) / 60);
+                s = parseInt(rest - (h * 3600 + m * 60));
                 $("#time").html("経過時間： " + time);
-                $("#remain").html("残り時間： " + m + "分" + s + "秒");
+                $("#remain").html("残り時間： " + h + "時間" + m + "分" + s + "秒");
                 analog(rest);
 
                 mstr = "分:";
@@ -270,7 +273,7 @@
 
     <input type="number" id="hour" value=0>
     <input type="number" id="minute" value=0>
-    <input type="number" id="second" value=15>
+    <input type="number" id="second" value=5>
 </body>
 
 </html>
