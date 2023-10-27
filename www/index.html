@@ -215,16 +215,17 @@
             if (active) {
                 active = false;
                 $("#btnA").html("Start");
+                $("#btnC").prop("disabled", false);
             } else {
                 active = true;
                 $("#btnA").html("Stop");
+                $("#btnC").prop("disabled", true);
             }
 
             if (rest != 0) {
                 period = rest;
             }
 
-            $("#btnA").prop("disabled", true);
             $("#btnB").prop("disabled", false);
         }
 
@@ -242,6 +243,7 @@
             ctx.clearRect(0, 0, 300, 300);
 
             h = 0; m = 0; s = 0;
+            rest = 0;
             $("#hour").prop("value", h);
             $("#minute").prop("value", m);
             $("#second").prop("value", s);
@@ -265,6 +267,7 @@
                 if (rest <= 0) {
                     active = false;
                     alarm();
+                    $("#btnA").html("Start");
                     $("#btnC").prop("disabled", false);
                 }
             }
@@ -339,8 +342,8 @@
     <button id="btnC">Reset</button>
 
     <input type="number" id="hour" value=0>
-    <input type="number" id="minute" value=0>
-    <input type="number" id="second" value=5>
+    <input type="number" id="minute" value=1>
+    <input type="number" id="second" value=0>
 </body>
 
 </html>
