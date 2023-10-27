@@ -164,7 +164,7 @@
         // ボタンの初期設定
         function init() {
             $('#btnA').prop('disabled', false);
-            $('#btnB').prop('disabled', true);
+            $('#btnB').prop('disabled', false);
             $('#btnC').prop('disabled', false);
 
             $("#hour").on(
@@ -206,13 +206,19 @@
             audio.play();
 
             $("#btnA").prop("disabled", false);
-            $("#btnB").prop("disabled", true);
         }
 
         // ButtonAがクリックされた時の処理
         function btnAClick(e) {
-            active = true;
             startTime = new Date();
+            
+            if (active) {
+                active = false;
+                $("#btnA").html("Start");
+            } else {
+                active = true;
+                $("#btnA").html("Stop");
+            }
 
             if (rest != 0) {
                 period = rest;
@@ -224,20 +230,24 @@
 
         // ButtonBがクリックされた時の処理
         function btnBClick(e) {
-            active = false;
-
-            $("#btnA").prop("disabled", false);
-            $("#btnB").prop("disabled", true);
+            m += 100;
+            $("#minute").prop("value", m);
+            
+            OutOfBoundsPrevention();
+            displayDataInfo();
         }
 
         // ButtonCがクリックされた時の処理
         function btnCClick(e) {
             ctx.clearRect(0, 0, 300, 300);
 
+            h = 0; m = 0; s = 0;
+            $("#hour").prop("value", h);
+            $("#minute").prop("value", m);
+            $("#second").prop("value", s);
+
             OutOfBoundsPrevention();
             displayDataInfo();
-
-            $("#btnC").prop("disabled", true);
         }
 
         // 繰り返し実行する処理
@@ -272,9 +282,15 @@
             }
             if (m<0) {
                 m = 0;
+            } else if (m>=60) {
+                h += parseInt(m/60);
+                m -= 60*parseInt(m/60);
             }
             if (s<0) {
                 s = 0;
+            } else if (s>=60) {
+                m += parseInt(s/60);
+                s -= 60*parseInt(m/60);
             }
 
             $("#hour").prop("value", h);
@@ -319,7 +335,7 @@
     <div id="time">Time</div>
 
     <button id="btnA">Start</button>
-    <button id="btnB">Stop</button>
+    <button id="btnB">+ 100 minutes</button>
     <button id="btnC">Reset</button>
 
     <input type="number" id="hour" value=0>
